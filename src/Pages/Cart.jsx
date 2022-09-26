@@ -7,7 +7,7 @@
 import React from "react";
 import { useContext } from "react";
 import {CartContext}  from '../Context/CartContext/CartContextProvider'
-import {removeData} from '../Context/CartContext/action'
+import {removeData,checkout} from '../Context/CartContext/action'
 
 
 
@@ -15,10 +15,23 @@ import {removeData} from '../Context/CartContext/action'
 const Cart = () => {
 
   let {cartstatus,cartdispatch}=useContext(CartContext)
-console.log(cartstatus,"hhh")
+// console.log(cartstatus,"hhh")
+
+function removetocart(id){
+  cartdispatch(removeData(id))
+
+}
+
+function clearItem(){
+  cartdispatch( checkout())
+}
+
   return <div>
   <h1>Hello Cart</h1>
-  {cartstatus.data? cartstatus.data.map(item=>{
+
+<button onClick={()=>clearItem()} > checkout</button>
+
+  {cartstatus? cartstatus.map(item=>{
 
 
     return  <div  key={item.id}>
@@ -26,7 +39,7 @@ console.log(cartstatus,"hhh")
     <img   src={item.image} alt="" />
 <h3>{item.title}</h3>
 <h4>{item.price}</h4>
-<button  onClick={()=>  cartdispatch(removeData(item)) } >Add to Cart</button>
+<button  onClick={()=> removetocart(item.id)  } >removetocart</button>
 
     
     </div>

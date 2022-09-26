@@ -23,6 +23,7 @@ const Home = () => {
   let [data,setData]=useState([])
 
   let {cartdispatch}=useContext(CartContext)
+    //  console.log(cartdispatch)
 
 async function getData(){
   setLoading(true)
@@ -30,7 +31,8 @@ await axios.get(`https://fakestoreapi.com/products`)
 .then  (res=>{
   setLoading(false)
   setData(res.data)
-  console.log(res.data)})
+  // console.log(res.data)
+})
 .catch(err=>{
   setLoading(false)
   setError(true)
@@ -59,6 +61,13 @@ if(error){
   return <h1>...........Something went wrong</h1>
 }
 
+
+function handleAdd(item){
+  // console.log(item)
+  cartdispatch(handleAddtoCart(item))
+
+}
+
   return <div>
   
   {data.map(item=>{
@@ -67,7 +76,7 @@ return  <div key={item.id} >
 <img   src={item.image} alt="" />
 <h3>{item.title}</h3>
 <h4>{item.price}</h4>
-<button  onClick={()=>  cartdispatch(handleAddtoCart(item)) } >Add to Cart</button>
+<button  onClick={()=>handleAdd(item) } >Add to Cart</button>
 
 </div>
 

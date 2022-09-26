@@ -9,12 +9,12 @@ return { type:"addtocart", payload:data}
 
 export function removeData(data){
 
-    return {payload:data}
+    return { type:"removtocart",  payload:data}
     
     }
 
     export function checkout(data){
 
-        return {payload:data}
+        return {type:"checkout"}
         
         }

@@ -4,21 +4,23 @@
 
 
 function Cartreducer(state,action){
-// console.log(action.payload)
 
-switch (action.type){
-    case "addtocart":
-        return state;
-
-        case "removtocart":
-            return state.data.filter(item=> item.id!==action.payload.id)
-
-            case "checkout":
-                return []
-
-        default: return state;
-}
-
-
-}
-export default Cartreducer
+    console.log(state)
+    
+    switch (action.type){
+        case "addtocart":
+            return [...state,action.payload];
+    
+            case "removtocart":
+                return state.filter(item=> item.id!==action.payload)
+    
+                case "checkout":
+                    return [];
+    
+            default: return state;
+    }
+    
+    
+    }
+    export default Cartreducer
+    
