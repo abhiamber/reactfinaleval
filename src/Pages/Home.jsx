@@ -14,6 +14,7 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from 'axios'
 import {CartContext}  from '../Context/CartContext/CartContextProvider'
 import {handleAddtoCart} from '../Context/CartContext/action'
+// import { click } from "@testing-library/user-event/dist/click";
 
 
 const Home = () => {
@@ -22,7 +23,21 @@ const Home = () => {
   let [error,setError]=useState(false)
   let [data,setData]=useState([])
 
-  let {cartdispatch}=useContext(CartContext)
+  let {cartstatus,cartdispatch}=useContext(CartContext)
+
+// console.log(cartdispatch)
+  function checkData(ids){
+
+      for(let i=0;i<cartstatus.length;i++){
+
+        if(cartstatus[i].id===ids){
+          return true
+        }
+      }
+
+      return false
+
+  }
     //  console.log(cartdispatch)
 
 async function getData(){
@@ -71,12 +86,12 @@ function handleAdd(item){
   return <div>
   
   {data.map(item=>{
-return  <div key={item.id} >
+return  <div key={item.id}  style={{margin:"auto",textAlign:"center"}} >
       
-<img   src={item.image} alt="" />
+<img   src={item.image} alt=""  style={{width:"30%"}} />
 <h3>{item.title}</h3>
 <h4>{item.price}</h4>
-<button  onClick={()=>handleAdd(item) } >Add to Cart</button>
+<button   disabled={checkData(item.id)} onClick={()=>handleAdd(item) } >Add to Cart</button>
 
 </div>
 

@@ -15,7 +15,7 @@ import {removeData,checkout} from '../Context/CartContext/action'
 const Cart = () => {
 
   let {cartstatus,cartdispatch}=useContext(CartContext)
-// console.log(cartstatus,"hhh")
+
 
 function removetocart(id){
   cartdispatch(removeData(id))
@@ -23,20 +23,25 @@ function removetocart(id){
 }
 
 function clearItem(){
-  cartdispatch( checkout())
+  if (window.confirm('Are you sure you want to order')) {
+    // Save it!
+    cartdispatch( checkout())
+  } else {
+  }
+
+
 }
 
   return <div>
   <h1>Hello Cart</h1>
 
-<button onClick={()=>clearItem()} > checkout</button>
 
   {cartstatus? cartstatus.map(item=>{
 
 
-    return  <div  key={item.id}>
+    return  <div  key={item.id} style={{margin:"auto",textAlign:"center"}} >
     
-    <img   src={item.image} alt="" />
+    <img   src={item.image} alt=""  style={{width:"30%"}} />
 <h3>{item.title}</h3>
 <h4>{item.price}</h4>
 <button  onClick={()=> removetocart(item.id)  } >removetocart</button>
@@ -44,7 +49,15 @@ function clearItem(){
     
     </div>
   }):null }
-  
+
+
+<div style={{margin:"auto",textAlign:"center"}} >
+
+ <h4  >Total:{cartstatus.reduce((a,b)=> a+Number(b.price),0 )} </h4>
+   
+  <button   onClick={()=>clearItem()} > Place Order</button>
+
+  </div>
   </div>;
 };
 

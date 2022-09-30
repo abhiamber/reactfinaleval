@@ -18,7 +18,7 @@ import React, { useState ,useContext} from "react";
 import axios from 'axios'
 import {AuthContext}  from '../Context/AuthContext/AuthContextProvider'
 import {loading,success,failure} from '../Context/AuthContext/action'
-import {useNavigate} from 'react-router-dom'
+import {Navigate} from 'react-router-dom'
 
 
 
@@ -30,12 +30,8 @@ let user={
 const Login = () => {
    let [userDetails,setUserDetails]=useState(user)
    let {state,dispatch}=useContext(AuthContext)
-   let navigate=useNavigate()
+  //  let navigate=useNavigate()
 
-   if(state.isAuth){
-
-    navigate("/Home")
-   }
    
   //  console.log(state)
 
@@ -88,6 +84,11 @@ password:params.password
    }
 
    
+   if(state.isAuth){
+
+return <Navigate to="/Home" />
+
+}
    
 
   return <div>
